@@ -11,7 +11,6 @@ function App() {
             <Layout>
                 <NavBar />
                 {content}
-                <CategoryList />
             </Layout>
         </>
     )
