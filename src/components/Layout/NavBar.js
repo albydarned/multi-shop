@@ -18,7 +18,7 @@ const NavBar = () => {
                         <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div className="navbar-nav mr-auto py-0">
                                 <a href="/" className="nav-item nav-link">Home</a>
-                                <a href="shop.html" className="nav-item nav-link active">Shop</a>
+                                <a href="/categories" className="nav-item nav-link active">Shop</a>
                                 <a href="detail.html" className="nav-item nav-link">Shop Detail</a>
                                 <div className="nav-item dropdown">
                                     <a href="/" className="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i className="fa fa-angle-down mt-1"></i></a>

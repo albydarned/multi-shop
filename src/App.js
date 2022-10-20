@@ -6,6 +6,20 @@ import CategoryList from './components/Layout/Categories/CategoryList';
 let content;
 
 function App() {
+
+    switch (window.location.pathname) {
+        case "/categories":
+            content = 
+                <> 
+                    <CategoryList />
+                </>;
+            break;
+
+        default:
+            content = <></>;
+        break;
+    }
+
     return (
         <>
             <Layout>

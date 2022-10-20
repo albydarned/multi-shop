@@ -10,7 +10,6 @@ const CategoryMenu = () => {
   const getCategoryMenu = async () => {
     try {
       const result = await axios.get('https://dummyjson.com/products/categories');
-      console.log(result.data);
       setCategoryMenu(result.data);
     } catch (error) {
       console.log(error);
@@ -47,7 +46,7 @@ const CategoryMenu = () => {
             let words = categoryFormatted.split(" ");
 
             return (
-              <a href="/" className="nav-item nav-link">
+              <a href={'/products/category/' + category} className="nav-item nav-link" key={category}>
                 {
                   words.map((word) => {
                     return word[0].toUpperCase() + word.substring(1);
