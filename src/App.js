@@ -1,6 +1,7 @@
 import './App.css';
 import Container from './components/Layout/Container';
 import NavBar from './components/Layout/NavBar';
+import Breadcrumb from './components/Layout/Breadcrumb';
 import Layout from './components/Layout/Layout';
 import CategoryList from './components/Layout/Categories/CategoryList';
 import ProductSidebar from './components/Products/ProductSidebar';
@@ -13,9 +14,21 @@ import { ProductContextProvider } from './store/product-context';
 let content;
 
 function App() {
+    let crumbs = [
+        {
+            name: 'Home',
+            path: '/'
+        }
+    ];
+    
 
     switch (window.location.pathname) {
         case "/categories":
+            crumbs.push({
+                name: 'Categories',
+                path: '/categories'
+            })
+
             content = 
                 <> 
                     <CategoryList />
@@ -25,6 +38,20 @@ function App() {
         case window.location.pathname.match(/\/products\/category\/[a-z,A-Z]/)?.input:
             let categoryParts = window.location.pathname.split("/");
             let category = categoryParts[categoryParts.length - 1];
+            let words = category.replace("-", " ").split(" ");
+            let categoryFormatted = words.map((word) => {
+                return word[0].toUpperCase() + word.substring(1);
+            }).join(" ");
+
+            crumbs.push({
+                name: 'Categories',
+                path: '/categories'
+            });
+
+            crumbs.push({
+                name: categoryFormatted,
+                path: '/categories/' + category
+            });
 
             content = 
                 <> 
@@ -40,6 +67,11 @@ function App() {
         case window.location.pathname.match(/\/products\/[0-9]*/)?.input:
             let productParts = window.location.pathname.split("/");
             let productId = productParts[productParts.length - 1];
+
+            crumbs.push({
+                name: "Product Detail",
+                path: '/products/' + productId
+            });
 
             content = 
                 <> 
@@ -59,7 +91,8 @@ function App() {
             <ProductContextProvider>
                 <Layout>
                     <NavBar />
-                        {content}
+                    <Breadcrumb crumbs={crumbs} />
+                    {content}
                 </Layout>
             </ProductContextProvider>
         </>
