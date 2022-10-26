@@ -1,26 +1,9 @@
-import { useEffect, useState } from "react";
-import axios from 'axios';
-import '../../../App.css';
+import { useContext } from "react";
+import ProductContext from '../../../store/product-context';
 
 const CategoryMenu = () => {
-  //declare a state variable
-  const [categoryMenu, setCategoryMenu] = useState([]);
-
-  //create a retrieval function
-  const getCategoryMenu = async () => {
-    try {
-      const result = await axios.get('https://dummyjson.com/products/categories');
-      setCategoryMenu(result.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  //call the function
-  useEffect(() => {
-    getCategoryMenu();
-  }, []);
-
+  const ctxProductContext = useContext(ProductContext);
+  const categoryList = ctxProductContext.getCategories();
 
   return (
     <div className="col-lg-3 d-none d-lg-block">
@@ -41,12 +24,12 @@ const CategoryMenu = () => {
         style={{width: `calc(100% - 30px)`, zIndex: 999}}
       >
         <div className="navbar-nav w-100">
-          {categoryMenu.map((category) => {
-            let categoryFormatted = category.replace("-", " ");
+          {Object.values(categoryList).map((category) => {
+            let categoryFormatted = category.name.replace("-", " ");
             let words = categoryFormatted.split(" ");
 
             return (
-              <a href={'/products/category/' + category} className="nav-item nav-link" key={category}>
+              <a href={'/products/category/' + category.name} className="nav-item nav-link" key={category.name}>
                 {
                   words.map((word) => {
                     return word[0].toUpperCase() + word.substring(1);

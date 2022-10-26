@@ -1,25 +1,10 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import ProductContext from '../../store/product-context';
 
 const ProductDetail = (props) => {
-    //declare state variable to hold the list of categories    
-    const [product, setProduct] = useState([]);
-
-    //define a data retrieval function
-    const getProduct = async () => {
-        try {
-            const result = await axios.get('https://dummyjson.com/products/' + props.id);
-            setProduct(result.data);
-
-        } catch (error) {
-            console.log(error);
-        }
-    }   
     
-    //call the function, this only renders once instead of going into a loop
-    useEffect(() => {
-        getProduct();
-    }, [])
+    const ctxProductContext = useContext(ProductContext);
+    const product = ctxProductContext.getProduct(props.id);
 
     return (
         <div className="container-fluid pb-5">
@@ -50,7 +35,7 @@ const ProductDetail = (props) => {
 
                 <div className="col-lg-7 h-auto mb-30">
                     <div className="h-100 bg-light p-30">
-                        <h3>{ product.title }</h3>
+                        <h3>{ product?.title }</h3>
                         <div className="d-flex mb-3">
                             <div className="text-primary mr-2">
                                 <small className="fas fa-star"></small>

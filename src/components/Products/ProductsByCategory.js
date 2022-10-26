@@ -1,30 +1,20 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import ProductList from './ProductList';
+import ProductContext from '../../store/product-context';
 
 const ProductsByCategory = (props) => {
 
-    //declare state variable to hold the list of categories    
-    const [products, setProducts] = useState([]);
+    const ctxProductContext = useContext(ProductContext);
+    const products = ctxProductContext.getProductsByCategory(props.category);
 
-    //define a data retrieval function
-    const getProducts = async () => {
-        try {
-            const result = await axios.get('https://dummyjson.com/products/category/' + props.category);
-            setProducts(result.data.products);
+    let words = props.category.replace("-", " ").split(" ");
+    let categoryFormatted = words.map((word) => {
+        return word[0].toUpperCase() + word.substring(1);
+    }).join(" ");
 
-        } catch (error) {
-            console.log(error);
-        }
-    }   
-    
-    //call the function, this only renders once instead of going into a loop
-    useEffect(() => {
-        getProducts();
-    }, [])
     return (
         <div className="col-lg-9 col-md-8">
-            <h2>{ props.category }</h2>
+            <h2>{ categoryFormatted }</h2>
             <ProductList products={products} rowClasses="row pb-3" productClasses="col-lg-4 col-md-6 col-sm-6 pb-1"/>
         </div>
     );

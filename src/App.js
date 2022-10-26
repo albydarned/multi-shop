@@ -48,7 +48,9 @@ function App() {
             break;
 
         default:
-            content = <></>;
+            content = <>
+                <FeaturedProducts />
+            </>;
         break;
     }
 

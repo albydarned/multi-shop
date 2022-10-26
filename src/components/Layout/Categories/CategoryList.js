@@ -4,7 +4,7 @@ import ProductContext from '../../../store/product-context';
 const CategoryList = () => {
 
     const ctxProductContext = useContext(ProductContext);
-    const categoryList = ctxProductContext.categories;
+    const categoryList = ctxProductContext.getCategories();
 
     return (
         <div className="container-fluid pt-5">
