@@ -20,7 +20,7 @@ const ProductTile = (props) => {
                     </div>
                 </div>
                 <div className="text-center py-4">
-                    <a className="h6 text-decoration-none text-truncate" href="/"
+                    <a className="h6 text-decoration-none text-truncate" href={'/products/' + props.product.id}
                     >{ props.product.title }</a
                     >
                     <div
