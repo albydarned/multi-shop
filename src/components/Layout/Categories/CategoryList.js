@@ -1,40 +1,10 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import ProductContext from '../../../store/product-context';
 
 const CategoryList = () => {
 
-    //declare state variable to hold the list of categories    
-    const [categoryList, setCategoryList] = useState([]);
-
-    //define a data retrieval function
-    const getCategoryList = async () => {
-        try {
-            const result = await axios.get('https://dummyjson.com/products?limit=100');
-            let newCategoryList = {};
-
-            result.data.products.forEach((product) => {
-                if (!(product.category in newCategoryList)) {
-                    newCategoryList[product.category] = {
-                        name: product.category,
-                        image: product.thumbnail,
-                        count: 1
-                    }
-                } else {
-                    newCategoryList[product.category].count++;
-                }
-            });
-            
-            setCategoryList(newCategoryList);
-
-        } catch (error) {
-            console.log(error);
-        }
-    }   
-    
-    //call the function, this only renders once instead of going into a loop
-    useEffect(() => {
-        getCategoryList();
-    }, [])
+    const ctxProductContext = useContext(ProductContext);
+    const categoryList = ctxProductContext.categories;
 
     return (
         <div className="container-fluid pt-5">

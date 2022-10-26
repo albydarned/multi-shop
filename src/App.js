@@ -7,6 +7,8 @@ import ProductSidebar from './components/Products/ProductSidebar';
 import FeaturedProducts from './components/Products/FeaturedProducts';
 import ProductsByCategory from './components/Products/ProductsByCategory';
 import ProductDetail from './components/Products/ProductDetail';
+import ProductContext from './store/product-context';
+import { ProductContextProvider } from './store/product-context';
 
 let content;
 
@@ -52,10 +54,12 @@ function App() {
 
     return (
         <>
-            <Layout>
-                <NavBar />
-                {content}
-            </Layout>
+            <ProductContextProvider>
+                <Layout>
+                    <NavBar />
+                        {content}
+                </Layout>
+            </ProductContextProvider>
         </>
     )
 };
