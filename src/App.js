@@ -6,6 +6,7 @@ import CategoryList from './components/Layout/Categories/CategoryList';
 import ProductSidebar from './components/Products/ProductSidebar';
 import FeaturedProducts from './components/Products/FeaturedProducts';
 import ProductsByCategory from './components/Products/ProductsByCategory';
+import ProductDetail from './components/Products/ProductDetail';
 
 let content;
 
@@ -20,8 +21,8 @@ function App() {
             break;
 
         case window.location.pathname.match(/\/products\/category\/[a-z,A-Z]/)?.input:
-            let parts = window.location.pathname.split("/");
-            let category = parts[parts.length - 1];
+            let categoryParts = window.location.pathname.split("/");
+            let category = categoryParts[categoryParts.length - 1];
 
             content = 
                 <> 
@@ -34,18 +35,13 @@ function App() {
                 </>;
             break;
 
-        case window.location.pathname.match(/\/products\/category\/[0-9]/)?.input:
-            let parts = window.location.pathname.split("/");
-            let productId = parts[parts.length - 1];
+        case window.location.pathname.match(/\/products\/[0-9]*/)?.input:
+            let productParts = window.location.pathname.split("/");
+            let productId = productParts[productParts.length - 1];
 
             content = 
                 <> 
-                    <Container className="container-fluid">
-                        <Container className="row px-xl-5">
-                            <ProductSidebar />
-                            <ProductsByCategory category={category} />
-                        </Container>
-                    </Container>
+                    <ProductDetail id={productId} />
                 </>;
             break;
 
